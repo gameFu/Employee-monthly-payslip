@@ -1,0 +1,29 @@
+<%= form_tag '/upload', { :multipart => true } do %>
+    <p>
+    <%= file_field_tag 'upload[file]' %>
+    </p>
+    <p>
+    	<%= submit_tag "Upload" %>
+    </p>
+<% end %>
+
+<table border="1">
+  <tr>
+    <th>name</th>
+    <th>pay period</th>
+    <th>gross income</th>
+    <th>income tax</th>
+    <th>net income</th>
+    <th>super</th>
+  </tr>
+  <% @payslips.each do |payslip| %>
+    <tr>
+      <td><%= payslip[0] %></td>
+      <td><%= payslip[1] %></td>
+      <td><%= payslip[2] %></td>
+      <td><%= payslip[3] %></td>
+      <td><%= payslip[4] %></td>
+      <td><%= payslip[5] %></td>
+    </tr>
+  <% end %>
+</table>
