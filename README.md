@@ -4,10 +4,15 @@ Employee Monthly Payslip
 
 Running
 -------------------
+```
+bundle install
 
-`bundle install`
+```
 
-`rails s`
+```
+rails s
+
+```
 
 Running the Automated Tests
 ---------------------------
