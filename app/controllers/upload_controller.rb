@@ -1,9 +1,11 @@
 class UploadController < ApplicationController
 
   def create
-    if !params[:upload].blank? && (File.extname(file.original_filename) == '.csv')
+    if !params[:upload].blank?
       file =  params[:upload][:file]
-      PayslipGenerator.new(file.path).generate
+      if File.extname(file.original_filename) == '.csv'
+        PayslipGenerator.new(file.path).generate
+      end
     end
     redirect_to root_path
   end
