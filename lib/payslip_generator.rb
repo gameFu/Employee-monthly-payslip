@@ -3,10 +3,14 @@ class PayslipGenerator
   def initialize(input_path = 'input.csv', output_path = 'output.csv')
     if input_path
       @input_path = input_path
-      @output_path = output_path
+      @output_path = Rails.env.test? ? test_env_out_path : output_path
     else
       raise "Input CSV file not specified."
     end
+  end
+
+  def test_env_out_path
+    Rails.root.join('test/fixtures/files/output.csv')
   end
 
   def generate
