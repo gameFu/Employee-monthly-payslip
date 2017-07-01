@@ -1,8 +1,8 @@
 class UploadController < ApplicationController
 
   def create
-    if !params[:upload].blank?
-      file =  params[:upload][:file]
+    if !params[:upload].blank? && upload_params.key?('file')
+      file =  upload_params[:file]
       if File.extname(file.original_filename) == '.csv'
         PayslipGenerator.new(file.path).generate
       else
@@ -12,6 +12,12 @@ class UploadController < ApplicationController
       flash[:danger] = '没有上传文件'
     end
     redirect_to root_path
+  end
+
+  private
+
+  def upload_params
+    params.require(:upload).permit(:file)
   end
 
 end

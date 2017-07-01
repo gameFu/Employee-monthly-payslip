@@ -1,11 +1,13 @@
+require 'csv'
+
 class PayslipGenerator
   attr_reader :input_path, :output_path
   def initialize(input_path = 'input.csv', output_path = 'output.csv')
-    if input_path
+    if input_path.present? && File.exist?(input_path)
       @input_path = input_path
       @output_path = Rails.env.test? ? test_env_out_path : output_path
     else
-      raise "Input CSV file not specified."
+      raise PayslipGeneratorError, "Input CSV file not specified."
     end
   end
 
@@ -31,3 +33,5 @@ class PayslipGenerator
   end
 
 end
+
+class PayslipGeneratorError < StandardError; end

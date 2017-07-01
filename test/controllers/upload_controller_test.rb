@@ -10,6 +10,16 @@ class UploadControllerTest < ActionDispatch::IntegrationTest
     assert_equal '没有上传文件', flash[:danger]
   end
 
+  test 'upload params error' do
+    post upload_path, params: {
+      upload: {
+        aa: ''
+      }
+    }
+    assert_redirected_to root_path
+    assert_equal '没有上传文件', flash[:danger]
+  end
+
   test 'file upload' do
     out_file = PayslipGenerator.new.test_env_out_path
     assert_not File.exist? out_file
