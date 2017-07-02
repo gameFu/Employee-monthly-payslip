@@ -3,7 +3,8 @@ require 'test_helper'
 class EmployeeTest < ActiveSupport::TestCase
 
   def setup
-    @employee = Employee.new(['Ryan','Chen','120000','10%', '01 March - 31 March'])
+    employee_attribute_provider = EmployeeAttributeProvider.new(['Ryan','Chen','120000','10%', '01 March - 31 March'])
+    @employee = Employee.new employee_attribute_provider
   end
 
   test "employee first name" do

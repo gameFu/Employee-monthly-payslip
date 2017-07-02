@@ -1,8 +1,8 @@
 class Payslip
   attr_accessor :employee
 
-  def initialize(employee)
-    @employee = employee
+  def initialize(employee_attribute_provider)
+    @employee = Employee.new employee_attribute_provider
   end
 
   def name
@@ -18,21 +18,7 @@ class Payslip
   end
 
   def income_tax
-    tax = case @employee.annual_salary
-          when 0..18200
-            0
-          when 18201..37000
-            ((@employee.annual_salary - 18200) * 0.19) / 12
-          when 37001..80000
-            (3572 + (@employee.annual_salary - 37000) * 0.325) / 12
-          when 80001..180000
-            (17547 + (@employee.annual_salary - 80000) * 0.37) / 12
-          else
-            if @employee.annual_salary > 180000
-              (54547 + (@employee.annual_salary - 180000) * 0.45) / 12
-            end
-          end
-    tax.round
+    IncomeTax.new(@employee.annual_salary).amount
   end
 
   def net_income

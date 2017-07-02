@@ -4,7 +4,7 @@ class UploadController < ApplicationController
     if !params[:upload].blank? && upload_params.key?('file')
       file =  upload_params[:file]
       if File.extname(file.original_filename) == '.csv'
-        PayslipGenerator.new(file.path).generate
+        PayslipGenerator.new(file.path, upload_params[:output_path]).generate
       else
         flash[:danger] = '文件类型错误'
       end
@@ -17,7 +17,7 @@ class UploadController < ApplicationController
   private
 
   def upload_params
-    params.require(:upload).permit(:file)
+    params.require(:upload).permit(:file, :output_path)
   end
 
 end
